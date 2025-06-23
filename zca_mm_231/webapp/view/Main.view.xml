@@ -1,0 +1,55 @@
+<mvc:View
+    controllerName="sync.c16.zcamm231.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+    xmlns:smartChart="sap.ui.comp.smartchart"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    displayBlock="true"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <VBox>
+            <!--  SmartFilterBar: 검색 조건 (WERKS, LGORT, MATNR)  -->
+            <SmartFilterBar
+                xmlns="sap.ui.comp.smartfilterbar"
+                id="smartFilterBar"
+                entitySet="ZCA_CDS_V_200"
+            >
+                <controlConfiguration>
+                    <ControlConfiguration
+                        key="matnr"
+                        visibleInAdvancedArea="true"
+                    />
+                    <ControlConfiguration
+                        key="lgort"
+                        visibleInAdvancedArea="true"
+                    />
+                    <ControlConfiguration
+                        key="werks"
+                        visibleInAdvancedArea="true"
+                    />
+                </controlConfiguration>
+            </SmartFilterBar>
+            <ScrollContainer
+                height="calc(100vh - 200px)"
+                vertical="true"
+                horizontal="false"
+                focusable="true"
+            >
+                <smartChart:SmartChart
+                    id="smartChart"
+                    entitySet="ZCA_CDS_V_200"
+                    smartFilterId="smartFilterBar"
+                    enableAutoBinding="true"
+                    header="월별 자재 입출고량"
+                    chartType="column"
+                    persistencyKey="CDS_CHART"
+                />
+            </ScrollContainer>
+        </VBox>
+    </Page>
+</mvc:View>

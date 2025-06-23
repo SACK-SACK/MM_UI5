@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="qrDialog"
+        title="QR 코드 스캔"
+        contentWidth="500px"
+        contentHeight="400px"
+        draggable="true"
+        resizable="true"
+        stretchOnPhone="true"
+        afterOpen=".onAfterOpenQRDialog"
+    >
+        <!-- 빈 VBox에 video를 DOM으로 삽입 -->
+        <VBox
+            id="qrContentBox"
+            class="sapUiSmallMargin"
+        />
+
+        <beginButton>
+            <Button
+                text="닫기"
+                press=".onCloseQRDialog"
+            />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

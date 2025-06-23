@@ -1,0 +1,182 @@
+<mvc:View
+    controllerName="sync.ca.mm.vendorperformance.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        id="detailPage"
+        title="{i18n>detailPageTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <ObjectHeader
+            id="objectHeader"
+            responsive="true"
+            fullScreenOptimized="true"
+            title="{Name1}"
+            intro="{Lifnr}"
+            backgroundDesign="Translucent"
+        >
+            <attributes>
+                <ObjectAttribute
+                    title="{i18n>colZemail}"
+                    text="{Zemail}"
+                />
+            </attributes>
+        </ObjectHeader>
+
+        <f:SimpleForm
+            class="sapUiResponsiveMargin"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="12"
+            labelSpanS="12"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+        >
+            <f:content>
+                <Label
+                    text="{i18n>dateRangeLabel}"
+                    required="true"
+                />
+                <DateRangeSelection
+                    id="drsTransactionDates"
+                    dateValue="{view>/dateFrom}"
+                    secondDateValue="{view>/dateTo}"
+                    delimiter="~"
+                    displayFormat="yyyy-MM-dd"
+                />
+                <Button
+                    text="{i18n>applyFilterButton}"
+                    press="onApplyDateFilter"
+                    type="Emphasized"
+                />
+            </f:content>
+        </f:SimpleForm>
+
+        <Text
+            id="appliedDateRangeText"
+            text="{view>/appliedDateRangeText}"
+            width="100%"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom sapUiSmallMarginEnd"
+        />
+
+        <Table
+            id="idTransactionsTable"
+            inset="false"
+            items="{
+                path: 'ZCA_180_CDS>/ZCA_CDS_V_180',
+                sorter: { path: 'Bedat', descending: true }
+            }"
+            noDataText="{i18n>noTransactionData}"
+            growing="false"
+            growingThreshold="15"
+            busyIndicatorDelay="0"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title
+                        text="{i18n>transactionsTableHeader}"
+                        level="H2"
+                    />
+                    <ToolbarSpacer />
+                    <Label
+                        text="{i18n>transactionCountLabel}:"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <Text
+                        text="{view>/transactionCount}"
+                        class="sapUiTinyMarginEnd sapUiSmallMarginBeginEnd"
+                    />
+                    <Label
+                        text="{i18n>totalAmountLabel}:"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <Text
+                        text="{
+                            parts: [ {path: 'view>/totalTransactionAmount'}, {path: 'view>/currencyCode'} ],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: { showMeasure: true, currencyCode: false }
+                        }"
+                    />
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column width="10rem">
+                    <Text text="{i18n>colEbeln}" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                >
+                    <Text text="{i18n>colBedat}" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                    hAlign="Begin"
+                >
+                    <Text text="{i18n>colWerks}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>colPname}" />
+                </Column>
+                <Column hAlign="End">
+                    <Text text="{i18n>colBrtwr}" />
+                </Column>
+                <Column
+                    minScreenWidth="Small"
+                    demandPopin="true"
+                    hAlign="End"
+                >
+                    <Text text="{i18n>colWaers}" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                >
+                    <Text text="{i18n>colIndat}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem
+                    type="Navigation"
+                    press=".onTransactionItemPress"
+                >
+                    <cells>
+                        <ObjectIdentifier title="{ZCA_180_CDS>Ebeln}" />
+                        <Text
+                            text="{ path: 'ZCA_180_CDS>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', UTC: true } }"
+                        />
+                        <Text text="{ZCA_180_CDS>Werks}" />
+                        <Text text="{ZCA_180_CDS>Pname}" />
+                        <ObjectNumber
+                            number="{
+                                parts: [ {path: 'ZCA_180_CDS>Brtwr'}, {path: 'ZCA_180_CDS>Waers'} ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: {
+                                    showMeasure: false,
+                                    groupingEnabled: true
+                                }
+                            }"
+                            emphasized="false"
+                        />
+                        <Text text="{ZCA_180_CDS>Waers}" />
+                        <Text
+                            text="{ path: 'ZCA_180_CDS>Indat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', UTC: true } }"
+                        />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

@@ -1,0 +1,166 @@
+<mvc:View
+    controllerName="sync.ca.mm.vendorperformance.controller.MaterialDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Page
+        id="materialDetailPage"
+        title="{i18n>materialDetailPageTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <ObjectHeader
+            id="materialDetailObjectHeader"
+            responsive="true"
+            fullScreenOptimized="true"
+            title="{i18n>purchaseOrderNumberLabel}: {view>/ebeln}"
+        >
+            <attributes>
+                <ObjectAttribute
+                    title="{i18n>vendorNumberLabel}"
+                    text="{view>/lifnr}"
+                />
+            </attributes>
+        </ObjectHeader>
+
+        <Table
+            id="idMaterialItemsTable"
+            inset="false"
+            items="{
+                path: 'ZCA_170_CDS>/ZCA_CDS_V_170',
+                sorter: { path: 'Ebelp', descending: false }
+            }"
+            noDataText="{i18n>noMaterialItemData}"
+            busyIndicatorDelay="0"
+            growing="true"
+            growingThreshold="20"
+            class="sapUiResponsiveMargin"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title
+                        text="{i18n>materialItemsTableHeader}"
+                        level="H2"
+                    />
+                    <ToolbarSpacer />
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column width="6rem">
+                    <Text text="{i18n>colEbelp}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>colMatnr}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>colMaktx}" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                >
+                    <Text text="{i18n>colBanfn}" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                    hAlign="End"
+                >
+                    <Text text="{i18n>colMenge}" />
+                </Column>
+                <Column
+                    minScreenWidth="Small"
+                    demandPopin="true"
+                    hAlign="Begin"
+                >
+                    <Text text="{i18n>colMeinh}" />
+                </Column>
+                <Column hAlign="End">
+                    <Text text="{i18n>colNetpr}" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                    hAlign="End"
+                >
+                    <Text text="{i18n>colDmbtr}" />
+                </Column>
+                <Column
+                    minScreenWidth="Small"
+                    demandPopin="true"
+                    hAlign="End"
+                >
+                    <Text text="{i18n>colWaers}" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                >
+                    <Text text="{i18n>colWerks}" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                >
+                    <Text text="{i18n>colLgort}" />
+                </Column>
+
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                    visible="false"
+                >
+                    <Text text="{i18n>colLtfnrVendor}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Inactive">
+                    <cells>
+                        <Text text="{ZCA_170_CDS>Ebelp}" />
+                        <ObjectIdentifier title="{ZCA_170_CDS>Matnr}" />
+                        <Text text="{ZCA_170_CDS>maktx}" />
+                        <Text text="{ZCA_170_CDS>Banfn}" />
+                        <ObjectNumber
+                            number="{
+                                path: 'ZCA_170_CDS>Menge',
+                                type: 'sap.ui.model.type.Float',
+                                formatOptions: {
+                                    groupingEnabled: true,
+                                    minFractionDigits: 0,
+                                    maxFractionDigits: 3
+                                }
+                            }"
+                            unit="{ZCA_170_CDS>Meinh}"
+                            emphasized="false"
+                        />
+                        <Text text="{ZCA_170_CDS>Meinh}" />
+                        <ObjectNumber
+                            number="{
+                                parts: [ {path: 'ZCA_170_CDS>Netpr'}, {path: 'ZCA_170_CDS>Waers'} ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: { showMeasure: false, groupingEnabled: true }
+                            }"
+                            emphasized="false"
+                        />
+                        <ObjectNumber
+                            number="{
+                                parts: [ {path: 'ZCA_170_CDS>Dmbtr'}, {path: 'ZCA_170_CDS>Waers'} ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: { showMeasure: false, groupingEnabled: true }
+                            }"
+                            emphasized="false"
+                        />
+
+                        <Text text="{ZCA_170_CDS>Waers}" />
+
+                        <Text text="{ZCA_170_CDS>Werks}" />
+                        <Text text="{ZCA_170_CDS>Lgort}" />
+                        <Text text="{ZCA_170_CDS>Ltfnr}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

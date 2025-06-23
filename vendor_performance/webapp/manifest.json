@@ -1,0 +1,208 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "sync.ca.mm.vendorperformance",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.16.5",
+      "toolsId": "8ea299f7-d943-4982-9c68-ed4436719322"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZCA_GW_210_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZCA_CDS_V_190_CDS_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZCA_CDS_V_190_CDS_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/ZCA_CDS_V_190_CDS/ZCA_CDS_V_190_CDS_VAN.xml"
+        }
+      },
+      "ZCA_CDS_V_190_CDS": {
+        "uri": "/sap/opu/odata/sap/ZCA_CDS_V_190_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": ["ZCA_CDS_V_190_CDS_VAN"],
+          "localUri": "localService/ZCA_CDS_V_190_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZCA_CDS_V_180_CDS_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZCA_CDS_V_180_CDS_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/ZCA_CDS_V_180_CDS/ZCA_CDS_V_180_CDS_VAN.xml"
+        }
+      },
+      "ZCA_CDS_V_180_CDS": {
+        "uri": "/sap/opu/odata/sap/ZCA_CDS_V_180_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": ["ZCA_CDS_V_180_CDS_VAN"],
+          "localUri": "localService/ZCA_CDS_V_180_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZCA_CDS_V_170_CDS_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZCA_CDS_V_170_CDS_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/ZCA_CDS_V_170_CDS/ZCA_CDS_V_170_CDS_VAN.xml"
+        }
+      },
+      "ZCA_CDS_V_170_CDS": {
+        "uri": "/sap/opu/odata/sap/ZCA_CDS_V_170_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": ["ZCA_CDS_V_170_CDS_VAN"],
+          "localUri": "localService/ZCA_CDS_V_170_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sync.ca.mm.vendorperformance.i18n.i18n"
+        }
+      },
+      "device": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "": {
+        "dataSource": "ZCA_CDS_V_190_CDS",
+        "preload": true,
+        "settings": {
+          "useBatch": true
+        }
+      },
+      "ZCA_190_CDS": {
+        "dataSource": "ZCA_CDS_V_190_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "ZCA_180_CDS": {
+        "dataSource": "ZCA_CDS_V_180_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "ZCA_170_CDS": {
+        "dataSource": "ZCA_CDS_V_170_CDS",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "sync.ca.mm.vendorperformance.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true,
+        "transition": "slide",
+        "bypassed": {
+          "target": "notFound"
+        }
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": ["TargetMain"]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "detail/{lifnrPath}",
+          "target": ["TargetDetail"]
+        },
+        {
+          "name": "RouteMaterialDetail",
+          "pattern": "materialdetail/{lifnrPath}/item/{ebelnPath}",
+          "target": ["TargetMaterialDetail"]
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "viewName": "Main",
+          "viewId": "mainView",
+          "viewLevel": 1
+        },
+        "TargetDetail": {
+          "viewName": "Detail",
+          "viewId": "detailView",
+          "viewLevel": 2
+        },
+        "TargetMaterialDetail": {
+          "viewName": "MaterialDetail",
+          "viewId": "materialDetailView",
+          "viewLevel": 3
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFoundView",
+          "transition": "show"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sync.ca.mm.vendorperformance.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "AppRoot"
+    }
+  }
+}

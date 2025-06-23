@@ -1,0 +1,132 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns="sap.m"
+    controllerName="sync.ca.mm.update.calendar.controller.Main"
+>
+    <Page
+        id="mainPage"
+        title="{i18n>mainPageTitle}"
+    >
+        <VBox class="sapUiSmallMargin">
+            <Panel
+                id="statusPanel"
+                expandable="true"
+                expanded="true"
+                headerText="{i18n>mainHeaderText}"
+                class="sapUiNoContentPadding"
+            >
+                <HBox class="sapUiSmallMarginBottom">
+                    <Label
+                        text="수정 모드 활성화"
+                        class="sapUiSmallMarginEnd"
+                    />
+                    <CheckBox
+                        selected="{settings>/enableEditMode}"
+                        select="onToggleEdit"
+                    />
+                </HBox>
+
+                <IconTabBar
+                    id="statusTabBar"
+                    select="onTabSelect"
+                    class="sapUiSmallMarginBottom"
+                    headerBackgroundDesign="Solid"
+                    expandable="false"
+                    expanded="true"
+                >
+                    <items>
+                        <IconTabFilter
+                            key="All"
+                            icon="sap-icon://activity-individual"
+                            text="전체"
+                            count="{summaryModel>/Total}"
+                            iconColor="Neutral"
+                        />
+                        <IconTabSeparator />
+                        <IconTabFilter
+                            key="Type03"
+                            icon="sap-icon://shipping-status"
+                            text="운송 중"
+                            count="{summaryModel>/Type03}"
+                            iconColor="Critical"
+                        />
+                        <IconTabFilter
+                            key="Type01"
+                            icon="sap-icon://lateness"
+                            text="운송 완료"
+                            count="{summaryModel>/Type01}"
+                            iconColor="Contrast"
+                            class="type01Tab"
+                        />
+                        <IconTabFilter
+                            key="Type02"
+                            icon="sap-icon://accept"
+                            text="입고 완료"
+                            count="{summaryModel>/Type02}"
+                            iconColor="Positive"
+                            class="type02Tab"
+                        />
+                        <IconTabFilter
+                            key="Type04"
+                            icon="sap-icon://decline"
+                            text="입고 실패"
+                            count="{summaryModel>/Type04}"
+                            iconColor="Negative"
+                            class="type04Tab"
+                        />
+                    </items>
+                    <content>
+                        <SinglePlanningCalendar
+                            id="SPC1"
+                            title="{i18n>spcTitle}"
+                            startDate="{/startDate}"
+                            stickyMode="{settings>/stickyMode}"
+                            enableAppointmentsDragAndDrop="{settings>/enableAppointmentsDragAndDrop}"
+                            enableAppointmentsResize="{settings>/enableAppointmentsResize}"
+                            enableAppointmentsCreate="{settings>/enableAppointmentsCreate}"
+                            appointmentSelect=".handleAppointmentSelect"
+                            appointmentDrop=".handleAppointmentDrop"
+                            appointmentResize=".handleAppointmentResize"
+                            appointmentCreate=".handleAppointmentCreateDnD"
+                            moreLinkPress=".handleMoreLinkPress"
+                            appointments="{path:'calendar>/appointments'}"
+                            class="sapUiSmallMarginTop"
+                        >
+                            <views>
+                                <SinglePlanningCalendarDayView
+                                    key="Day"
+                                    title="{i18n>mainDay}"
+                                />
+                                <SinglePlanningCalendarWorkWeekView
+                                    key="WorkWeek"
+                                    title="{i18n>mainWorekWeek}"
+                                />
+                                <SinglePlanningCalendarWeekView
+                                    key="Week"
+                                    title="{i18n>mainWeek}"
+                                />
+                                <SinglePlanningCalendarMonthView
+                                    key="Month"
+                                    title="{i18n>mainMonth}"
+                                />
+                            </views>
+                            <appointments>
+                                <unified:CalendarAppointment
+                                    key="{calendar>Ebeln}"
+                                    title="{calendar>title}"
+                                    text="{calendar>text}"
+                                    type="{calendar>type}"
+                                    icon="{calendar>icon}"
+                                    startDate="{calendar>startDate}"
+                                    endDate="{calendar>endDate}"
+                                />
+                            </appointments>
+                        </SinglePlanningCalendar>
+                    </content>
+                </IconTabBar>
+            </Panel>
+        </VBox>
+    </Page>
+</mvc:View>

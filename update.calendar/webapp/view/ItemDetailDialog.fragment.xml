@@ -1,0 +1,106 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="poDetailDialog"
+        title="구매오더 상세"
+        contentWidth="80%"
+        contentHeight="auto"
+    >
+        <content>
+            <Table
+                items="{dialogModel>/Items}"
+                noDataText="해당 구매오더에 대한 품목 정보가 없습니다."
+            >
+                <columns>
+                    <Column width="10%">
+                        <Text text="구매오더(Ebeln)" />
+                    </Column>
+                    <Column width="8%">
+                        <Text text="벤더코드(Ltfnr)" />
+                    </Column>
+                    <Column width="8%">
+                        <Text text="플랜트(Werks)" />
+                    </Column>
+                    <Column
+                        hAlign="Right"
+                        width="12%"
+                    >
+                        <Text text="총 금액(Brtwr)" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        width="5%"
+                    >
+                        <Text text="통화(Waers)" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        width="8%"
+                    >
+                        <Text text="운송완료(Elikz)" />
+                    </Column>
+
+                    <Column
+                        hAlign="Center"
+                        width="8%"
+                    >
+                        <Text text="입고완료(Wepos)" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{dialogModel>Ebeln}" />
+                            <Text text="{dialogModel>Ltfnr}" />
+                            <Text text="{dialogModel>Werks}" />
+                            <ObjectNumber
+                                number="{
+                                    parts:[{path:'dialogModel>Brtwr'},{path:'dialogModel>Waers'}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {
+                                        showMeasure: false
+                                    }
+                                }"
+                                emphasized="false"
+                            />
+                            <Text text="{dialogModel>Waers}" />
+
+                            <CheckBox
+                                selected="{dialogModel>Elikz}"
+                                select=".onCheckboxSelect"
+                                displayOnly="false"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="field"
+                                        value="Elikz"
+                                    />
+                                </customData>
+                            </CheckBox>
+                            <CheckBox
+                                selected="{dialogModel>Wepos}"
+                                select=".onCheckboxSelect"
+                                displayOnly="false"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="field"
+                                        value="Wepos"
+                                    />
+                                </customData>
+                            </CheckBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <beginButton>
+            <Button
+                text="닫기"
+                press=".onCloseItemDetailDialog"
+            />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

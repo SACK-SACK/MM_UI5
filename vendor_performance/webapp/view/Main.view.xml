@@ -1,0 +1,95 @@
+<mvc:View
+    controllerName="sync.ca.mm.vendorperformance.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Page id="mainPage">
+        <content>
+            <Table
+                id="idVendorsTable"
+                inset="false"
+                items="{
+                    path: '/ZCA_CDS_V_190'
+                }"
+                growing="true"
+                growingThreshold="20"
+                busyIndicatorDelay="0"
+            >
+                <!-- sorter: {
+                        path: 'LIFNR',
+                        descending: false
+                    } -->
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            text="{i18n>mainPageTitle}"
+                            level="H2"
+                        />
+                        <ToolbarSpacer />
+                        <SearchField
+                            width="auto"
+                            placeholder="{i18n>searchPlaceholder}"
+                            search="onSearch"
+                            liveChange="onSearch"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="10rem">
+                        <Text text="{i18n>colLifnr}" />
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>colName1}" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="Begin"
+                    >
+                        <Text text="{i18n>colSaknr}" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="Begin"
+                    >
+                        <Text text="{i18n>colZemail}" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="Begin"
+                    >
+                        <Text text="{i18n>colBpcsnr}" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="Begin"
+                    >
+                        <Text text="{i18n>colBankcode}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        type="Navigation"
+                        press="onListItemPress"
+                    >
+                        <cells>
+                            <Text text="{Lifnr}" />
+                            <ObjectIdentifier title="{Name1}" />
+                            <Text text="{Saknr}" />
+                            <Link
+                                text="{Zemail}"
+                                href="mailto:{Zemail}"
+                            />
+                            <Text text="{Bpcsnr}" />
+                            <Text text="{Bankcode}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

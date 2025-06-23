@@ -1,0 +1,72 @@
+<c:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:chart="sap.suite.ui.microchart"
+>
+    <Dialog
+        id="checkstockDialog"
+        title="자재 정보"
+        contentWidth="600px"
+        contentHeight="350px"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+    >
+        <VBox>
+            <HBox>
+                <VBox>
+                    <Text text="플랜트: {/WERKS} {/PNAME}" />
+                    <Text text="창고: {/LGORT} {/LGOBE}" />
+                    <Text text="자재번호: {/MATNR} {/MAKTX}" />
+                </VBox>
+                <ToolbarSpacer width="150px" />
+                <chart:BulletMicroChart
+                    size="S"
+                    actualValueLabel="총재고"
+                    targetValueLabel="안전재고"
+                    showTargetValue="true"
+                    targetValue="{/EISBE}"
+                    forecastValue="{/UMLME}"
+                    class="sapUiSmallMargin"
+                >
+                    <chart:actual>
+                        <chart:BulletMicroChartData
+                            value="{/TSTOCK}"
+                            color="{/TSTOCK_COLOR}"
+                        />
+                    </chart:actual>
+                    <chart:thresholds>
+                        <chart:BulletMicroChartData
+                            value="{/EISBE}"
+                            color="Error"
+                        />
+                        <chart:BulletMicroChartData
+                            value="{/EISBE_2X}"
+                            color="Critical"
+                        />
+                        <chart:BulletMicroChartData
+                            value="{/EISBE_X10}"
+                            color="Error"
+                        />
+                    </chart:thresholds>
+                </chart:BulletMicroChart>
+            </HBox>
+            <ToolbarSpacer width="39px" />
+            <VBox>
+                <Text text="총재고: {/TSTOCK} {/MEINS}" />
+                <Text text="안전재고: {/EISBE} {/MEINS}" />
+                <Text text="입고예정재고: {/UMLME} {/MEINS}" />
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="QR 코드:" />
+                <c:HTML
+                    content="&lt;div id=&quot;qrDisplayArea&quot; style=&quot;margin-top:10px;&quot;&gt;&lt;/div&gt;"
+                />
+            </VBox>
+        </VBox>
+        <beginButton>
+            <Button
+                text="닫기"
+                press=".onDialogClose"
+            />
+        </beginButton>
+    </Dialog>
+</c:FragmentDefinition>

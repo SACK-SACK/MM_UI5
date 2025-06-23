@@ -1,0 +1,126 @@
+<mvc:View
+    id="batchView"
+    controllerName="sync.c16.zcamm221.controller.Batch"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    displayBlock="true"
+>
+    <f:DynamicPage
+        id="batchDynamicPage"
+        headerExpanded="true"
+        toggleHeaderOnTitleClick="true"
+    >
+        <!-- Header Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="배치 정보" />
+                </f:heading>
+                <f:content>
+                    <OverflowToolbar>
+                        <HBox justifyContent="End">
+                            <Button
+                                icon="sap-icon://edit"
+                                text="수정"
+                                press=".onPressEditBatch"
+                            />
+                            <Button
+                                icon="sap-icon://save"
+                                text="저장"
+                                press=".onPressSaveBatch"
+                            />
+                        </HBox>
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute
+                            title="자재코드"
+                            text="{= ${viewModel>/header/Matnr} + ' ' + ${viewModel>/header/Maktx} }"
+                        />
+                        <ObjectAttribute
+                            title="플랜트"
+                            text="{= ${viewModel>/header/Werks} + ' ' + ${viewModel>/header/Pname} }"
+                        />
+                        <ObjectAttribute
+                            title="창고"
+                            text="{= ${viewModel>/header/Lgort} + ' ' + ${viewModel>/header/Lgobe} }"
+                        />
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <!-- Main Content -->
+        <f:content>
+            <Table
+                id="batchTable"
+                items="{ path: '/ZCACDSV221Set' }"
+                mode="MultiSelect"
+                inset="true"
+                sticky="HeaderToolbar"
+                class="sapFDynamicPageAlignContent"
+                updateFinished=".onUpdateFinished"
+            >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title
+                            text="배치 테이블"
+                            level="H2"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <Text text="배치" />
+                    </Column>
+                    <Column>
+                        <Text text="이전배치" />
+                    </Column>
+                    <Column>
+                        <Text text="유통기한" />
+                    </Column>
+                    <Column>
+                        <Text text="수량" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        class="cell-red"
+                        type="Active"
+                    >
+                        <cells>
+                            <Text text="{Charg}" />
+                            <Text text="{Chargfr}" />
+                            <Text
+                                text="{ path: 'Vfdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy.MM.dd' } }"
+                            />
+                            <VBox>
+                                <Text
+                                    text="{Btqty} {Unit}"
+                                    visible="{= !${Editmode} }"
+                                />
+                                <HBox visible="{Editmode}">
+                                    <Input
+                                        value="{Btqty}"
+                                        width="80px"
+                                        description="{Unit}"
+                                    />
+                                </HBox>
+                            </VBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:mc="sap.suite.ui.microchart"
+>
+    <ColumnListItem>
+        <cells>
+            <!-- 자재코드 -->
+            <Text text="{MATNR}" />
+
+            <!-- 자재명 -->
+            <Text text="{MAKTX}" />
+
+            <!-- Bullet MicroChart: 총가격(TOPRI), 목표(UMLME), 임계값(TSTOCK) -->
+            <mc:BulletMicroChart
+                actual="{TOPRI}"
+                target="{UMLME}"
+                scale="₩"
+                size="M"
+                showActualValue="true"
+                showTargetValue="true"
+                showThresholds="true"
+            >
+                <mc:BulletMicroChartThresholds>
+                    <mc:BulletMicroChartThreshold value="{TSTOCK}" />
+                </mc:BulletMicroChartThresholds>
+            </mc:BulletMicroChart>
+        </cells>
+    </ColumnListItem>
+</core:FragmentDefinition>
